@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:component-scan base-package="com.wwx.ssm.o2o" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+
+    <!--加载数据库-->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <!--连接数据库-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="user" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--           spring与mybatis 整合部分            -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--  mapper 文件  -->
+        <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"/>
+        <!--mybatis 配置文件-->
+        <property name="configLocation" value="classpath:mybatis-spring.xml"/>
+    </bean>
+
+    <!--扫描dao 层   将dao注入到IOC容器中-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--注入sqlSessionFactory-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--扫描dao包-->
+        <property name="basePackage" value="com.wwx.ssm.o2o.dao"/>
+    </bean>
+
+    <!--批量执行sqlSession-->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <constructor-arg name="executorType" value="BATCH"/>
+    </bean>
+
+    <!--======================事物管理部分=========================-->
+    <!--事物管理器  数据来源-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+   <!-- <tx:annotation-driven transaction-manager="transactionManager"/>-->
+
+    <!--基于注解的事物-->
+    <aop:config>
+        <!--service包下所有方法  方法类型  所带参数不限-->
+        <aop:pointcut id="txPoint" expression="execution(* com.wwx.ssm.o2o.service..*(..))"/>
+
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
+
+    </aop:config>
+
+    <!--若事物管理器名称不是transactionManager
+    则应该增加属性transaction-manager 设置事物管理器名称
+    -->
+    <tx:advice id="txAdvice" >
+        <tx:attributes>
+            <!--所有方法-->
+            <tx:method name="*"/>
+            <!--所有get方法-->
+            <tx:method name="get*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+</beans>

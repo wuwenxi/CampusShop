@@ -1,0 +1,121 @@
+package com.wwx.ssm.o2o.utils;
+
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+
+public class ImageUtils {
+
+    //找到根目录下的watermark.jpg文件
+    private static String basePath = Thread.currentThread()
+            .getContextClassLoader().getResource("").getPath();
+
+
+    //获取当前时间  年-月-日-小时-分钟-秒钟
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+    //随机函数
+    private static final Random random = new Random();
+
+    /**
+     *
+     *                  上传文件
+     *          后期将采用CommonsMultipartFile
+     * @param inputStream
+     * @param fileName
+     * @param path
+     * @return
+     */
+    public static String generateThumbnail(InputStream inputStream,String fileName, String path){
+        //获取随机文件名
+        String realFileName = getRandomName();
+        //获取源文件的扩展名
+        String extension = getFileExtension(fileName);
+        //创建路径所需的文件夹  "upload/item/shop/1/"
+        makeDirName(path);
+        //相对路径
+        String relativePath = path + realFileName + extension;
+        //保存路径
+        File dest = new File(PathUtils.getImgBasePath() + relativePath);
+        try {
+            Thumbnails.of(inputStream)
+                    .size(200,200)
+                    //压缩成百分之八十
+                    .outputQuality(0.8f)
+                    //输出新文件
+                    .toFile(dest);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return relativePath;
+    }
+
+    /**
+     *  每个文件的开头名字都不同，当前年月日小时分钟秒 + 五位随机数
+     * @return
+     */
+    public static String getRandomName(){
+        //大于10000 小于89999
+        int randomNum = random.nextInt(8999) + 10000;
+        //获取当前时间
+        String nowTime = dateFormat.format(new Date());
+        return nowTime + randomNum;
+    }
+
+    /**
+     *    获取输入流文件的扩展名
+     * @param file
+     * @return
+     */
+    private static String getFileExtension(String file){
+        //截取文件名中最后一个"."后面的字符串
+        return file.substring(file.lastIndexOf("."));
+
+    }
+
+    /**
+     *   创建目标路径所需的所有文件夹
+     */
+    private static void makeDirName(String path) {
+        String realFilePath = PathUtils.getImgBasePath() + path;
+        //获取文件路径
+        File dirPath = new File(realFilePath);
+        if(!dirPath.exists()){
+            //如果文件不存在  递归创建文件目录
+            dirPath.mkdirs();
+        }
+    }
+
+    /**
+     *         path 是文件路径还是目录文件
+     *         如是文件路径则删除当前文件
+     *         如是目录路径则删除当前目录下的所有文件
+     * @param path
+     */
+    public static void deleteFileOrPath(String path){
+
+        File fileOrPath = new File(PathUtils.getImgBasePath() + path);
+
+        if(fileOrPath.exists()){
+            //若该路径为目录  则找出该目录下的所有文件  遍历删除
+            if(fileOrPath.isDirectory()){
+                File[] files = fileOrPath.listFiles();
+                assert files != null;
+                for(File file:files){
+                    file.delete();
+                }
+            }
+            //若为文件  则直接删除
+            fileOrPath.delete();
+        }
+    }
+
+}

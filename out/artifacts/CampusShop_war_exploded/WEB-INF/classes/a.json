@@ -1,0 +1,43 @@
+
+{
+  "code":100,
+  "msg":"操作成功",
+  "extend": {
+    "map": {
+      "shop": {
+        "shopId":38,
+        "owner":null,
+        "area":{"areaId":3,"areaName":"北苑","areaDesc":null,"priority":null,"createTime":null,"lastEditTime":null},
+        "shopCategory":{"shopCategoryId":2,"shopCategoryName":"咖啡店","shopCategoryDesc":null,"shopCategoryImg":null,"priority":null,"createTime":null,"lastEditTime":null,"parent":null},
+        "shopName":"星巴克",
+        "shopDesc":"星巴克咖啡",
+        "shopAddress":"香港马会第五中学",
+        "phone":null,
+        "shopImg":"\\upload\\item\\shop\\38\\2018081622212711005.jpg",
+        "priority":null,
+        "createTime":1534429287000,
+        "lastEditTime":1534429287000,
+        "enableStatus":null,
+        "advice":null},
+      "areaList":[{
+        "areaId":1,
+        "areaName":"东苑",
+        "areaDesc":"东苑",
+        "priority":100,
+        "createTime":null,
+        "lastEditTime":null},
+        {"areaId":3,
+          "areaName":"北苑",
+          "areaDesc":"北苑",
+          "priority":90,
+          "createTime":null,
+          "lastEditTime":null},
+        {"areaId":2,
+          "areaName":"西苑",
+          "areaDesc":"西苑",
+          "priority":80,
+          "createTime":null,
+          "lastEditTime":null}]
+    }
+  }
+}

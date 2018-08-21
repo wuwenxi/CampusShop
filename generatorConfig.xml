@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--连接数据库-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql:///shops"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--实体类存放位置-->
+        <javaModelGenerator targetPackage="com.wwx.ssm.o2o.entity"
+                            targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--mapper文件存放位置-->
+        <sqlMapGenerator targetPackage="mybatis.mapper"
+                         targetProject=".\src\main\resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!--dao接口-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.wwx.ssm.o2o.dao"
+                             targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--数据表生成对应的实体类-->
+        <table tableName="tb_area" domainObjectName="Area"/>
+        <table tableName="tb_head_line" domainObjectName="HeadLine"/>
+        <table tableName="tb_local_auth" domainObjectName="LocalAuth"/>
+        <table tableName="tb_person_info" domainObjectName="PersonInfo"/>
+        <table tableName="tb_product" domainObjectName="Product"/>
+        <table tableName="tb_product_category" domainObjectName="ProductCategory"/>
+        <table tableName="tb_product_img" domainObjectName="ProductImg"/>
+        <table tableName="tb_shop" domainObjectName="Shop"/>
+        <table tableName="tb_shop_category" domainObjectName="ShopCategory"/>
+        <table tableName="tb_wechat_auth" domainObjectName="WeChatAuth"/>
+
+
+    </context>
+</generatorConfiguration>
