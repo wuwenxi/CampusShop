@@ -1,4 +1,4 @@
-package com.wwx.ssm.o2o.test.Shopcategory;
+package com.wwx.ssm.o2o.test.shopcategory;
 
 import com.wwx.ssm.o2o.dao.ShopCategoryMapper;
 import com.wwx.ssm.o2o.entity.ShopCategory;

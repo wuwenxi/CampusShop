@@ -1,4 +1,4 @@
-package com.wwx.ssm.o2o.controller;
+package com.wwx.ssm.o2o.controller.area;
 
 import com.wwx.ssm.o2o.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;

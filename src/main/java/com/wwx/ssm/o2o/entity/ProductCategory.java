@@ -3,7 +3,7 @@ package com.wwx.ssm.o2o.entity;
 import java.util.Date;
 
 /**
- *    商品类别
+ *    店铺类别
  * */
 public class ProductCategory {
     //商品Id
@@ -20,6 +20,26 @@ public class ProductCategory {
     public ProductCategory() {
     }
 
+    public ProductCategory(Integer productCategoryId, String productCategoryName,
+                           Integer priority, Date createTime, Integer shopId) {
+        this.productCategoryId = productCategoryId;
+        this.productCategoryName = productCategoryName;
+        this.priority = priority;
+        this.createTime = createTime;
+        this.shopId = shopId;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductCategory{" +
+                "productCategoryId=" + productCategoryId +
+                ", productCategoryName='" + productCategoryName + '\'' +
+                ", priority=" + priority +
+                ", createTime=" + createTime +
+                ", shopId=" + shopId +
+                '}';
+    }
+
     public Integer getProductCategoryId() {
         return productCategoryId;
     }
@@ -33,7 +53,7 @@ public class ProductCategory {
     }
 
     public void setProductCategoryName(String productCategoryName) {
-        this.productCategoryName = productCategoryName == null ? null : productCategoryName.trim();
+        this.productCategoryName = productCategoryName;
     }
 
     public Integer getPriority() {

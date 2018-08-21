@@ -1,4 +1,4 @@
-package com.wwx.ssm.o2o.test.Shop;
+package com.wwx.ssm.o2o.test.shop;
 
 import com.wwx.ssm.o2o.dao.ShopMapper;
 import com.wwx.ssm.o2o.entity.Area;
@@ -10,7 +10,6 @@ import com.wwx.ssm.o2o.service.ShopService;
 import com.wwx.ssm.o2o.test.BaseTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,8 +37,8 @@ public class ShopTest extends BaseTest {
         shopCategory.setShopCategoryId(1);
 
         File image = new File("E:\\Spring\\img\\shuixianhua.jpg");
-        Shop shop = new Shop(null,own,area,shopCategory,"正式的店铺","这是一个正式的店铺",
-                "德阳市黄许镇","15283840975",null,100,new Date(),new Date(),1,null);
+        Shop shop = new Shop(null,own,area,shopCategory,"老字号包子铺","包子铺",
+                "德阳市黄许镇","15283840975",null,100,new Date(),new Date(),0,null);
         mapper.insertShop(shop);
     }
 

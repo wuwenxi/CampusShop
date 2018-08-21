@@ -62,7 +62,7 @@ public class Shop {
 
     @Override
     public String toString() {
-        return "Shop{" +
+        return "shop{" +
                 "shopId=" + shopId +
                 ", owner=" + owner +
                 ", area=" + area +

@@ -1,4 +1,4 @@
-package com.wwx.ssm.o2o.controller.Shop;
+package com.wwx.ssm.o2o.controller.shop;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wwx.ssm.o2o.entity.*;
@@ -18,7 +18,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

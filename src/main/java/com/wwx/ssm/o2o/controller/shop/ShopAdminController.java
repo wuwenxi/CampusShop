@@ -1,4 +1,4 @@
-package com.wwx.ssm.o2o.controller.Shop;
+package com.wwx.ssm.o2o.controller.shop;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,5 +20,10 @@ public class ShopAdminController {
     @RequestMapping(value = "/shopManagement",method = RequestMethod.GET)
     public String ShopManagement(){
         return "shopManagement";
+    }
+
+    @RequestMapping(value = "/productCategoryManage",method = RequestMethod.GET)
+    public String ProductCategoryManagement(){
+        return "productCategoryManagement";
     }
 }

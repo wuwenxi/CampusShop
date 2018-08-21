@@ -54,7 +54,7 @@ public class SpringTest {
         area.setAreaId(1);
         shopCategory.setShopCategoryId(1);
 
-        /*Shop shop = new Shop(30,own,null,null,"优乐美奶茶","优乐美奶茶","德阳市",null,null,
+        /*shop shop = new shop(30,own,null,null,"优乐美奶茶","优乐美奶茶","德阳市",null,null,
                 80,null,new Date(),1,null);*/
         //shopMapper.insertShop(shop);
 
