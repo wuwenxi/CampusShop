@@ -30,11 +30,23 @@ $(function () {
     });
 
     //删除按钮
-    $(document).on("click",".delete",function () {
-        alert("....")
-    })
+    $(document).on("click",".delete",function (e) {
+        var target = e.currentTarget;
+        var productCategoryId = target.dataset.id ;
+        $.confirm("确定删除该店铺类别？",function () {
+            $.ajax({
+                url:"/shopAdmin/deleteProductCategory/"+productCategoryId,
+                type:"DELETE",
+                success:function (data) {
+                    if(data.code === 100){
+                        alert("删除成功");
+                    }
+                }
+            })
+        });
+    });
 
     $("#submit").click(function () {
         alert(".....")
-    })
+    });
 });

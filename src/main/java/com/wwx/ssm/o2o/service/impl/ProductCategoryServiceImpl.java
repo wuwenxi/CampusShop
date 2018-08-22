@@ -18,10 +18,21 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         return mapper.queryProductCategoryList(shopId);
     }
 
-    public int addProductCategory(ProductCategory category) {
+    public int addProductCategory(List<ProductCategory> category) {
         int num = -1;
         try {
-            num = mapper.insertProductCategory(category);
+            num = mapper.batchInsertProductCategory(category);
+            return num;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return num;
+    }
+
+    public int deleteProductCategoryById(Integer id) {
+        int num = -1;
+        try {
+            num = mapper.deleteProductCategoryById(id);
             return num;
         } catch (Exception e) {
             e.printStackTrace();

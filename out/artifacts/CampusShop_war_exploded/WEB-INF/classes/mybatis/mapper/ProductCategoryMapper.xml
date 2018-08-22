@@ -10,11 +10,21 @@
          priority desc
     </select>
 
-    <insert id="insertProductCategory" useGeneratedKeys="true" keyColumn="product_category_id" keyProperty="productCategoryId">
-        insert into
-        tb_product_category(product_category_id,
-        product_category_name,priority,create_time,shop_id)
-        values (#{productCategoryId},#{productCategoryName},#{priority},#{createTime},#{shopId})
+    <insert id="batchInsertProductCategory" parameterType="java.util.List">
+        insert into 
+        tb_product_category(product_category_name,
+        priority,create_time,shop_id)
+        values 
+        <foreach collection="list" item="category" index="index" separator=",">
+            (#{category.productCategoryName}
+            ,#{category.priority}
+            ,#{category.createTime}
+            ,#{category.shopId})
+        </foreach>
     </insert>
+
+    <delete id="deleteProductCategoryById">
+        delete from tb_product_category where product_category_id = #{productCategoryId}
+    </delete>
 
 </mapper>

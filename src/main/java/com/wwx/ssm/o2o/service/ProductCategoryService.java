@@ -8,5 +8,7 @@ public interface ProductCategoryService {
 
     List<ProductCategory> getProductCategoryList(Integer shopId);
 
-    int addProductCategory(ProductCategory category);
+    int addProductCategory(List<ProductCategory> category);
+
+    int deleteProductCategoryById(Integer id);
 }

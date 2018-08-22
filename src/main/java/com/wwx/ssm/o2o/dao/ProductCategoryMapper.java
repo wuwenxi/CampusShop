@@ -14,5 +14,12 @@ public interface ProductCategoryMapper {
      */
     List<ProductCategory> queryProductCategoryList(Integer shopId);
 
-    int insertProductCategory(ProductCategory category);
+    /**
+     *   添加店铺类别
+     * @param category
+     * @return
+     */
+    int batchInsertProductCategory(List<ProductCategory> category);
+
+    int deleteProductCategoryById(Integer id);
 }

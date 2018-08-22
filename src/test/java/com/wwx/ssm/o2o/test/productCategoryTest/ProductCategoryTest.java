@@ -6,6 +6,7 @@ import com.wwx.ssm.o2o.test.BaseTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +18,9 @@ public class ProductCategoryTest extends BaseTest {
 
     @Test
     public void test01(){
-        int num = service.addProductCategory
-                (new ProductCategory(null,"美食",90,new Date(),1));
+        List<ProductCategory> list = new ArrayList<ProductCategory>();
+        list.add(new ProductCategory(null,"美食",90,new Date(),1));
+        int num = service.addProductCategory(list);
         if(num <= 0){
             System.out.println("添加失败");
         }else {
@@ -34,6 +36,16 @@ public class ProductCategoryTest extends BaseTest {
             for (ProductCategory category : list){
                 System.out.println(category);
             }
+        }
+    }
+
+    @Test
+    public void test03(){
+        int num = service.deleteProductCategoryById(5);
+        if(num<=0){
+            System.out.println("删除失败");
+        }else {
+            System.out.println("删除成功");
         }
     }
 }

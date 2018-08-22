@@ -5,8 +5,10 @@ import com.wwx.ssm.o2o.entity.ProductCategory;
 import com.wwx.ssm.o2o.entity.Shop;
 import com.wwx.ssm.o2o.service.ProductCategoryService;
 import com.wwx.ssm.o2o.utils.HttpServletRequestUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,5 +53,21 @@ public class ProductCategoryController {
             }
         }
         return Msg.fail();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/deleteProductCategory/{id}",method = RequestMethod.DELETE)
+    public Msg deleteProductCategory(@PathVariable("id")Integer productCategoryId){
+        if(productCategoryId <= 0){
+            return Msg.fail();
+        }
+
+        try {
+            service.deleteProductCategoryById(productCategoryId);
+            return Msg.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+             return Msg.fail();
+        }
     }
 }
