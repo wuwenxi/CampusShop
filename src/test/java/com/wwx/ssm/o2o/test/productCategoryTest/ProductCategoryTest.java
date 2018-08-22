@@ -1,6 +1,7 @@
 package com.wwx.ssm.o2o.test.productCategoryTest;
 
 import com.wwx.ssm.o2o.entity.ProductCategory;
+import com.wwx.ssm.o2o.execution.ProductCategoryExecution;
 import com.wwx.ssm.o2o.service.ProductCategoryService;
 import com.wwx.ssm.o2o.test.BaseTest;
 import org.junit.Test;
@@ -20,8 +21,8 @@ public class ProductCategoryTest extends BaseTest {
     public void test01(){
         List<ProductCategory> list = new ArrayList<ProductCategory>();
         list.add(new ProductCategory(null,"美食",90,new Date(),1));
-        int num = service.addProductCategory(list);
-        if(num <= 0){
+        ProductCategoryExecution execution = service.addProductCategory(list);
+        if(execution.getStatus() <= 0){
             System.out.println("添加失败");
         }else {
             System.out.println("添加成功");
@@ -41,11 +42,11 @@ public class ProductCategoryTest extends BaseTest {
 
     @Test
     public void test03(){
-        int num = service.deleteProductCategoryById(5);
+       /* int num = service.deleteProductCategoryById(5);
         if(num<=0){
             System.out.println("删除失败");
         }else {
             System.out.println("删除成功");
-        }
+        }*/
     }
 }

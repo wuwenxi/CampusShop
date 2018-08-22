@@ -3,17 +3,18 @@ package com.wwx.ssm.o2o.controller.productCategory;
 import com.wwx.ssm.o2o.entity.Msg;
 import com.wwx.ssm.o2o.entity.ProductCategory;
 import com.wwx.ssm.o2o.entity.Shop;
+import com.wwx.ssm.o2o.enums.ProductCategoryEnum;
+import com.wwx.ssm.o2o.exception.ProductCategoryException;
+import com.wwx.ssm.o2o.execution.ProductCategoryExecution;
 import com.wwx.ssm.o2o.service.ProductCategoryService;
 import com.wwx.ssm.o2o.utils.HttpServletRequestUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +57,34 @@ public class ProductCategoryController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/addProductCategory",method = RequestMethod.POST)
+    public Msg addProductCategory(@RequestBody List<ProductCategory> categoryList, HttpServletRequest request){
+        //从session中获取店铺信息
+        Shop shop = (Shop)request.getSession().getAttribute("currentShop");
+        //为每个商品类别附上店铺id及创建时间
+        for(ProductCategory category:categoryList){
+            category.setShopId(shop.getShopId());
+            category.setCreateTime(new Date());
+        }
+
+        //进行批量添加
+        if(categoryList.size()>0){
+            try {
+                ProductCategoryExecution execution = service.addProductCategory(categoryList);
+                if(execution.getStatus().equals(ProductCategoryEnum.SUCCESS.getStatus())){
+                    return Msg.success();
+                }else {
+                    return Msg.fail();
+                }
+            } catch (Exception e) {
+                throw new ProductCategoryException("errorMsg:"+ e.getMessage());
+            }
+        }
+
+        return Msg.fail();
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/deleteProductCategory/{id}",method = RequestMethod.DELETE)
     public Msg deleteProductCategory(@PathVariable("id")Integer productCategoryId){
         if(productCategoryId <= 0){
@@ -63,11 +92,14 @@ public class ProductCategoryController {
         }
 
         try {
-            service.deleteProductCategoryById(productCategoryId);
-            return Msg.success();
+            ProductCategoryExecution execution = service.deleteProductCategoryById(productCategoryId);
+            if(execution.getStatus().equals(ProductCategoryEnum.SUCCESS.getStatus())){
+                return Msg.success();
+            }else {
+                return Msg.fail();
+            }
         } catch (Exception e) {
-            e.printStackTrace();
-             return Msg.fail();
+            throw new ProductCategoryException("errorMsg:"+e.getMessage());
         }
     }
 }
