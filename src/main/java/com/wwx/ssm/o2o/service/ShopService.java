@@ -1,24 +1,20 @@
 package com.wwx.ssm.o2o.service;
 
+import com.wwx.ssm.o2o.bean.ImageHolder;
 import com.wwx.ssm.o2o.entity.Shop;
 import com.wwx.ssm.o2o.exception.ShopException;
 import com.wwx.ssm.o2o.execution.ShopExecution;
-import org.apache.ibatis.annotations.Param;
-
-import java.io.InputStream;
-import java.util.List;
 
 
 public interface ShopService {
-
     /**
      *
+     *     添加商铺
      * @param shop
-     * @param inputStream
-     * @param fileName
+     * @param image  封装了文件的输入流及文件名
      * @return
      */
-    ShopExecution addShop(Shop shop, InputStream inputStream,String fileName);
+    ShopExecution addShop(Shop shop,ImageHolder image);
 
     void updateShop(Shop shop);
 
@@ -33,14 +29,14 @@ public interface ShopService {
     Shop getShopById(Integer id);
 
     /**
-     *          更新店铺   包括处理图片
      *
-     * @param shop
-     * @param in
-     * @param fileName
+     *  更新店铺   包括处理图片
+     * @param shop 商铺
+     * @param image 封装了文件的输入流 及 文件名
      * @return
+     * @throws ShopException
      */
-    ShopExecution modifyShop(Shop shop,InputStream in,String fileName) throws ShopException;
+    ShopExecution modifyShop(Shop shop,ImageHolder image) throws ShopException;
 
     /**
      *    获取店铺类别   通过ShopExecution整合店铺信息

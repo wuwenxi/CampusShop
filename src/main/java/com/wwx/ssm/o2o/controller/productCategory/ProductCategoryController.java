@@ -1,14 +1,12 @@
 package com.wwx.ssm.o2o.controller.productCategory;
 
-import com.wwx.ssm.o2o.entity.Msg;
+import com.wwx.ssm.o2o.bean.Msg;
 import com.wwx.ssm.o2o.entity.ProductCategory;
 import com.wwx.ssm.o2o.entity.Shop;
 import com.wwx.ssm.o2o.enums.ProductCategoryEnum;
 import com.wwx.ssm.o2o.exception.ProductCategoryException;
 import com.wwx.ssm.o2o.execution.ProductCategoryExecution;
 import com.wwx.ssm.o2o.service.ProductCategoryService;
-import com.wwx.ssm.o2o.utils.HttpServletRequestUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +27,7 @@ public class ProductCategoryController {
     private Map<String,Object> map = new HashMap<String, Object>();
 
     /**
-     *                获取店铺类型列表
+     *                获取商品类别列表
      * @param request
      * @return
      */

@@ -56,6 +56,25 @@ public class Product {
         this.shop = shop;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", productDesc='" + productDesc + '\'' +
+                ", imgAddress='" + imgAddress + '\'' +
+                ", normalPrice='" + normalPrice + '\'' +
+                ", promotionPrice='" + promotionPrice + '\'' +
+                ", priority=" + priority +
+                ", createTime=" + createTime +
+                ", lastEditTime=" + lastEditTime +
+                ", enableStatus=" + enableStatus +
+                ", productImgList=" + productImgList +
+                ", productCategory=" + productCategory +
+                ", shop=" + shop +
+                '}';
+    }
+
     public Integer getProductId() {
         return productId;
     }

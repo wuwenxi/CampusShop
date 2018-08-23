@@ -1,5 +1,6 @@
 package com.wwx.ssm.o2o.test.shop;
 
+import com.wwx.ssm.o2o.bean.ImageHolder;
 import com.wwx.ssm.o2o.dao.ShopMapper;
 import com.wwx.ssm.o2o.entity.Area;
 import com.wwx.ssm.o2o.entity.PersonInfo;
@@ -56,7 +57,8 @@ public class ShopTest extends BaseTest {
         File file = new File("E:\\Spring\\img\\Desert.jpg");
         try {
             InputStream in = new FileInputStream(file);
-            ShopExecution execution = shopService.modifyShop(shop,in,"Desert.jpg");
+            ImageHolder image = new ImageHolder("Desert.jpg",in);
+            ShopExecution execution = shopService.modifyShop(shop,image);
             System.out.println(execution.getStateInfo());
         } catch (FileNotFoundException e) {
             e.printStackTrace();

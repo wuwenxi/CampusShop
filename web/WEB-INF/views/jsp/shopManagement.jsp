@@ -40,7 +40,7 @@
                 <a id="shopInfo" href="${APP_PATH}/shop/shopOperation" class="button button-big button-fill" >商铺信息</a>
             </div>
             <div class="col-50 mb">
-                <a href="/shop/productmanage" class="button button-big button-fill">商品管理</a>
+                <a href="${APP_PATH}/shop/productManage" class="button button-big button-fill">商品管理</a>
             </div>
             <div class="col-50 mb">
                 <a href="${APP_PATH}/shop/productCategoryManage" class="button button-big button-fill">类别管理</a>

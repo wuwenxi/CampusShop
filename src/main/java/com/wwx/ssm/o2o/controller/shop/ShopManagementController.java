@@ -1,6 +1,8 @@
 package com.wwx.ssm.o2o.controller.shop;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wwx.ssm.o2o.bean.ImageHolder;
+import com.wwx.ssm.o2o.bean.Msg;
 import com.wwx.ssm.o2o.entity.*;
 import com.wwx.ssm.o2o.enums.ShopStateEnum;
 import com.wwx.ssm.o2o.execution.ShopExecution;
@@ -166,9 +168,9 @@ public class ShopManagementController {
                 if(!ValidateUtil.checkShopImage(shopImage.getOriginalFilename())){
                     return Msg.fail().add("error","文件格式错误！请传入图片");
                 }
-                execution = shopService.modifyShop(shop,shopImage.getInputStream(),shopImage.getOriginalFilename());
+                execution = shopService.modifyShop(shop,new ImageHolder(shopImage.getOriginalFilename(),shopImage.getInputStream()));
             }else
-                execution = shopService.modifyShop(shop,null,null);
+                execution = shopService.modifyShop(shop,null);
             if(execution.getState().equals(ShopStateEnum.SUCCESS.getState())){
                 return Msg.success().add("execution",execution.getStateInfo());
             }
@@ -228,7 +230,7 @@ public class ShopManagementController {
             info.setUserId(1);
             shop.setOwner(info);
 
-            execution = shopService.addShop(shop,shopImage.getInputStream(),shopImage.getOriginalFilename());
+            execution = shopService.addShop(shop,new ImageHolder(shopImage.getOriginalFilename(),shopImage.getInputStream()));
 
             //如果状态为审核，则返回正确，否则错误
             if (execution.getState().equals(ShopStateEnum.CHECK.getState())) {

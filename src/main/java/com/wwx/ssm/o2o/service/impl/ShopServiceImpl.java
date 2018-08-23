@@ -1,5 +1,6 @@
 package com.wwx.ssm.o2o.service.impl;
 
+import com.wwx.ssm.o2o.bean.ImageHolder;
 import com.wwx.ssm.o2o.enums.ShopStateEnum;
 import com.wwx.ssm.o2o.dao.ShopMapper;
 import com.wwx.ssm.o2o.entity.Shop;
@@ -11,9 +12,7 @@ import com.wwx.ssm.o2o.utils.PageCalculator;
 import com.wwx.ssm.o2o.utils.PathUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
@@ -30,10 +29,10 @@ public class ShopServiceImpl implements ShopService {
      *
      *        改造后的addShop方法： 传入shop对象，输入流，文件名称
      * @param shop
-     * @param inputStream
+     * @param image
      * @return
      */
-    public ShopExecution addShop(Shop shop,InputStream inputStream,String fileName) throws ShopException {
+    public ShopExecution addShop(Shop shop, ImageHolder image) throws ShopException {
         if(shop == null){
             //店铺信息为空
             return new ShopExecution(ShopStateEnum.NULL_SHOP);
@@ -64,10 +63,10 @@ public class ShopServiceImpl implements ShopService {
                 throw new SecurityException("店铺添加失败");
             }else {
                 //添加图片
-                if(inputStream!= null){
+                if(image.getInputStream()!= null){
                     try{
                         //添加图片地址
-                        addShopImg(shop,inputStream,fileName);
+                        addShopImg(shop,image);
                     }catch (Exception e){
                         throw new ShopException("updateInputStream ERROR:" + e.getMessage());
                     }
@@ -90,11 +89,11 @@ public class ShopServiceImpl implements ShopService {
 
     }
 
-    private void addShopImg(Shop shop,InputStream inputStream,String fileName){
+    private void addShopImg(Shop shop,ImageHolder image){
         //获取相对路径  "upload/item/shop/"+ shopId + "/"
         String path = PathUtils.getShopImagePath(shop.getShopId());
         //存储图片的绝对路径
-        String realPath = ImageUtils.generateThumbnail(inputStream,fileName,path);
+        String realPath = ImageUtils.generateThumbnail(image,path);
         //将图片地址存入数据库
         shop.setShopImg(realPath);
     }
@@ -111,20 +110,22 @@ public class ShopServiceImpl implements ShopService {
         return mapper.queryShopById(id);
     }
 
-    public ShopExecution modifyShop(Shop shop, InputStream in, String fileName) throws ShopException{
-
+    public ShopExecution modifyShop(Shop shop,ImageHolder image) throws ShopException{
+        InputStream in = image.getInputStream();
+        String fileName = image.getFileName();
         if(shop == null || shop.getShopId() == null){
             return new ShopExecution(ShopStateEnum.NULL_SHOP);
         }else {
             //  1.  判断是否需要更新图片
             try {
-                if(in != null && fileName!=null && !"".equals(fileName)){
+                if(in != null && fileName!= null
+                        && !"".equals(fileName)){
                     Shop shopImg = mapper.queryShopById(shop.getShopId());
                     if(shopImg.getShopImg()!=null){
                         ImageUtils.deleteFileOrPath(shopImg.getShopImg());
                     }
                     //更新图片
-                    addShopImg(shop,in,fileName);
+                    addShopImg(shop,image);
                 }
                 // 2.  更新商铺信息
                 shop.setLastEditTime(new Date());

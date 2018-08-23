@@ -1,21 +1,33 @@
 package com.wwx.ssm.o2o.dao;
 
+
 import com.wwx.ssm.o2o.entity.Product;
 
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface ProductMapper {
 
-    int deleteByPrimaryKey(Integer productId);
+    /**
+     *
+     *      根据店铺id获取商品信息
+     * @param shopId
+     * @return
+     */
+    List<Product> queryProductList(Integer shopId);
 
-    int insert(Product record);
+    /**
+     *    添加商品信息
+     * @param product
+     * @return
+     */
+    int insertProduct(Product product);
 
-    int insertSelective(Product record);
+    /**
+     *
+     *   根据商品id删除商品
+     * @param productId
+     * @return
+     */
+    int deleteProductByProductId(Integer productId);
 
-    Product selectByPrimaryKey(Integer productId);
-
-    int updateByPrimaryKeySelective(Product record);
-
-    int updateByPrimaryKey(Product record);
 }

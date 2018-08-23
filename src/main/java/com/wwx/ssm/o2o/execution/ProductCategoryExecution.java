@@ -7,9 +7,9 @@ import java.util.List;
 
 public class ProductCategoryExecution {
     //状态
-    private Integer status;
+    private Integer state;
     //状态标识
-    private String statusInfo;
+    private String stateInfo;
     //需要操作的商品类别
     private List<ProductCategory> productCategoryList;
 
@@ -17,32 +17,32 @@ public class ProductCategoryExecution {
 
     //操作失败
     public ProductCategoryExecution(ProductCategoryEnum categoryEnum){
-        this.status = categoryEnum.getStatus();
-        this.statusInfo = categoryEnum.getStatusInfo();
+        this.state = categoryEnum.getStatus();
+        this.stateInfo = categoryEnum.getStatusInfo();
     }
 
     //操作成功
     public ProductCategoryExecution(ProductCategoryEnum categoryEnum,
                                     List<ProductCategory> productCategoryList){
-        this.status = categoryEnum.getStatus();
-        this.statusInfo = categoryEnum.getStatusInfo();
+        this.state = categoryEnum.getStatus();
+        this.stateInfo = categoryEnum.getStatusInfo();
         this.productCategoryList = productCategoryList;
     }
 
     public Integer getStatus() {
-        return status;
+        return state;
     }
 
     public void setStatus(Integer status) {
-        this.status = status;
+        this.state = status;
     }
 
     public String getStatusInfo() {
-        return statusInfo;
+        return stateInfo;
     }
 
     public void setStatusInfo(String statusInfo) {
-        this.statusInfo = statusInfo;
+        this.stateInfo = statusInfo;
     }
 
     public List<ProductCategory> getProductCategoryList() {

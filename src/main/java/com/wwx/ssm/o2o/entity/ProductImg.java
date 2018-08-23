@@ -3,7 +3,7 @@ package com.wwx.ssm.o2o.entity;
 import java.util.Date;
 
 /**
- *   商铺图片
+ *   商品详情图
  * */
 public class  ProductImg {
     //商品图片id

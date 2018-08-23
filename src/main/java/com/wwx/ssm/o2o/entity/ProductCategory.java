@@ -3,7 +3,7 @@ package com.wwx.ssm.o2o.entity;
 import java.util.Date;
 
 /**
- *    店铺类别
+ *    商品类别
  * */
 public class ProductCategory {
     //商品Id

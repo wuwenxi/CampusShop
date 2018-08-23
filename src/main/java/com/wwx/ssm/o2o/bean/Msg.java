@@ -1,4 +1,4 @@
-package com.wwx.ssm.o2o.entity;
+package com.wwx.ssm.o2o.bean;
 
 import java.util.HashMap;
 import java.util.Map;

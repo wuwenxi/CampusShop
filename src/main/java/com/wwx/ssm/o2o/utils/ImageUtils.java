@@ -1,5 +1,6 @@
 package com.wwx.ssm.o2o.utils;
 
+import com.wwx.ssm.o2o.bean.ImageHolder;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 public class ImageUtils {
@@ -28,25 +30,49 @@ public class ImageUtils {
      *
      *                  上传文件
      *          后期将采用CommonsMultipartFile
-     * @param inputStream
-     * @param fileName
+     * @param image
      * @param path
      * @return
      */
-    public static String generateThumbnail(InputStream inputStream,String fileName, String path){
+    public static String generateThumbnail(ImageHolder image, String path){
         //获取随机文件名
         String realFileName = getRandomName();
         //获取源文件的扩展名
-        String extension = getFileExtension(fileName);
+        String extension = getFileExtension(image.getFileName());
         //创建路径所需的文件夹  "upload/item/shop/1/"
         makeDirName(path);
         //相对路径
         String relativePath = path + realFileName + extension;
-        //保存路径
+        //保存路径  根路径+ 相对路径
         File dest = new File(PathUtils.getImgBasePath() + relativePath);
         try {
-            Thumbnails.of(inputStream)
+            Thumbnails.of(image.getInputStream())
                     .size(200,200)
+                    //压缩成百分之八十
+                    .outputQuality(0.8f)
+                    //输出新文件
+                    .toFile(dest);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return relativePath;
+    }
+
+    public static String generateNormalImage(ImageHolder image,String path){
+        //获取随机文件名
+        String realFileName = getRandomName();
+        //获取源文件的扩展名
+        String extension = getFileExtension(image.getFileName());
+        //创建路径所需的文件夹  "upload/item/shop/1/"
+        makeDirName(path);
+        //相对路径
+        String relativePath = path + realFileName + extension;
+        //保存路径  根路径+ 相对路径
+        File dest = new File(PathUtils.getImgBasePath() + relativePath);
+        try {
+            Thumbnails.of(image.getInputStream())
+                    .size(337,640)
                     //压缩成百分之八十
                     .outputQuality(0.8f)
                     //输出新文件

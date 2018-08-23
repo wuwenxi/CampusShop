@@ -29,9 +29,7 @@ $(function () {
         });
     }
 
-
-
-    //删除按钮
+    //删除按钮  删除商品类别
     $(document).on("click",".now .delete",function (e) {
         var target = e.currentTarget;
         var productCategoryId = target.dataset.id ;
@@ -49,6 +47,7 @@ $(function () {
         });
     });
 
+    //删除新创建的行，
     $(document).on("click",".temp .delete",function () {
         $(this).parent().parent().remove();
     });
