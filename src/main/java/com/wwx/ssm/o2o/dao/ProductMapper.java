@@ -9,6 +9,14 @@ public interface ProductMapper {
 
     /**
      *
+     *    根据商品id获取商品信息
+     * @param productId
+     * @return
+     */
+    Product queryProductById(Integer productId);
+
+    /**
+     *
      *      根据店铺id获取商品信息
      * @param shopId
      * @return

@@ -20,11 +20,11 @@ public class productTest extends BaseTest {
     @Test
     public void test01(){
         ProductCategory category = new ProductCategory();
-        category.setProductCategoryId(16);
+        category.setProductCategoryId(2);
         Shop shop = new Shop();
-        shop.setShopId(1);
+        shop.setShopId(41);
         int num = mapper.insertProduct(
-                new Product(null,"珍珠奶茶","珍珠奶茶，大杯，中杯",null,"10.00",
+                new Product(null,"灌汤包","灌汤包",null,"10.00",
                         "10.00",100, new Date(),new Date(),
                         1,null,category, shop));
         if(num <= 0){
@@ -40,5 +40,11 @@ public class productTest extends BaseTest {
         for(Product product:list){
             System.out.println(product);
         }
+    }
+
+    @Test
+    public void test03(){
+        Product product = mapper.queryProductById(1);
+        System.out.println(product);
     }
 }

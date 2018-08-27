@@ -40,20 +40,21 @@
                 <div class="col-50">操作</div>
             </div>
             <div class="product-wrap">
-                <!-- <div class="row row-product">
-                    <div class="col-40">商品名称</div>
-                    <div class="col-60">
-                        <a href="#">编辑</a>
-                        <a href="#">删除</a>
-                        <a href="#">预览</a>
+                <div class="row row-product">
+                    <div class="col-30" id="product_name"></div>
+                    <div class="col-20" id="priority"></div>
+                    <div class="col-50" id="operation">
+                        <a href="#" class="edit"></a>
+                        <a href="#" class="delete"></a>
+                        <a href="#" class="preview"></a>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
         <div class="content-block">
             <div class="row">
                 <div class="col-50">
-                    <a href="${APP_PATH}/shop/shopManagement?"
+                    <a href="${APP_PATH}/shop/shopManagement"
                        class="button button-big button-fill button-danger">返回</a>
                 </div>
                 <div class="col-50">

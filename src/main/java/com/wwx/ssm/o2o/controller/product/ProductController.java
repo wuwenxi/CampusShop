@@ -43,6 +43,30 @@ public class ProductController {
 
     private Map<String,Object> map = new HashMap<String, Object>();
 
+
+    /**
+     *        根据商品id获取商品信息
+     * @param productId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getProduct/{productId}",method = RequestMethod.GET)
+    public Msg getProductById(@PathVariable Integer productId){
+        if(productId!=null){
+            try {
+                ProductExecution execution = service.getProductById(productId);
+                if(execution.getState().equals(ProductEnum.SUCCESS.getStatus())){
+                    map.put("product",execution.getProduct());
+                     return Msg.success().add("map",map);
+                }
+            } catch (Exception e) {
+                throw new ProductException("获取失败");
+            }
+        }
+        return Msg.fail();
+    }
+
+
     /**
      *
      *    获取商品列表
@@ -151,5 +175,11 @@ public class ProductController {
             }
         }
         return Msg.fail().add("error","添加失败");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/modifyProduct",method = RequestMethod.POST)
+    public Msg modifyProduct(){
+        return null;
     }
 }

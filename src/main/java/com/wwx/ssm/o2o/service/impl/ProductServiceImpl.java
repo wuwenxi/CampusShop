@@ -28,6 +28,20 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductImgMapper imgMapper;
 
+    public ProductExecution getProductById(Integer productId) {
+        if(productId!=null){
+            try {
+                Product product = mapper.queryProductById(productId);
+                if(product != null){
+                    return new ProductExecution(ProductEnum.SUCCESS,product);
+                }
+            } catch (Exception e) {
+                throw new ProductImgException("发生未知错误");
+            }
+        }
+        return new ProductExecution(ProductEnum.ERROR);
+    }
+
     public ProductExecution getProductList(Integer shopId) {
         try {
             List<Product> list =  mapper.queryProductList(shopId);

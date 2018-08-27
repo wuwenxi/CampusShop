@@ -9,6 +9,14 @@ import java.util.List;
 public interface ProductService {
 
     /**
+     *
+     *    获取商品信心
+     * @param productId
+     * @return
+     */
+    ProductExecution getProductById(Integer productId);
+
+    /**
      *    通过店铺id获取全部商品
      * @param shopId
      * @return

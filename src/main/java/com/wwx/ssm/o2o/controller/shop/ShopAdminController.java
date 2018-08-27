@@ -31,4 +31,9 @@ public class ShopAdminController {
     public String ProductManagement(){
         return "productManagement";
     }
+
+    @RequestMapping(value = "/productEdit",method = RequestMethod.GET)
+    public String ProductEdit(){
+        return "productEdit";
+    }
 }

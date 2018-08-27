@@ -8,34 +8,34 @@ $(function () {
     var isEdit = !!shopId;
     //URL地址
     var postUrl = "";
+
+    //在加载页面前获取选中框中的数据
+    getShopInitInfo();
+
     //判断是注册店铺或是修改店铺信息
     if(isEdit){
         getShopInfo(shopId);
         postUrl = "/shopAdmin/modifyShop";
     }else {
-        getShopInitInfo();
         postUrl = "/shopAdmin/registerShop";
     }
 
     //修改店铺信息时获取店铺的全部新消息
     function getShopInfo(shopId) {
-        $.getJSON("/shopAdmin/getShopById?shopId="+shopId,function (data) {
+        $.getJSON("/shopAdmin/getShopById/"+shopId,function (data) {
             if(data.code === 100){
+                console.log(data);
                 var shop = data.extend.map.shop;
                 $("#shopName").val(shop.shopName);
                 $("#shopAddress").val(shop.shopAddress);
                 $("#shopDesc").val(shop.shopDesc);
                 $("#shopPhone").val(shop.phone);
 
-                $.each(data.extend.map.areaList,function () {
-                   $("<option></option>").append(this.areaName)
-                       .attr("value",this.areaId).appendTo("#area");
-                });
                 //将area中的id值设为选中
                 $("#area option[value='"+shop.area.areaId+"']").attr("selected",true);
-
-                $("<option></option>").append(shop.shopCategory.shopCategoryName)
-                    .attr("value",shop.shopCategory.shopCategoryId).appendTo("#shopCategory");
+                //将shopCategory中的id值设为选中
+                $("#shopCategory option[value='"+shop.shopCategory.shopCategoryId+"']")
+                    .attr("selected",true);
                 //将商品类别设为不可选
                 $("#shopCategory").attr("disabled","disabled");
             }

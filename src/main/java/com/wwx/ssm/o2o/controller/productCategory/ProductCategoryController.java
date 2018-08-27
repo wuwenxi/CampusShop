@@ -54,6 +54,13 @@ public class ProductCategoryController {
         return Msg.fail();
     }
 
+    /**
+     *
+     *   添加商品类别
+     * @param categoryList
+     * @param request
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/addProductCategory",method = RequestMethod.POST)
     public Msg addProductCategory(@RequestBody List<ProductCategory> categoryList, HttpServletRequest request){
@@ -82,6 +89,12 @@ public class ProductCategoryController {
         return Msg.fail();
     }
 
+    /**
+     *
+     *   删除商品类别
+     * @param productCategoryId
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/deleteProductCategory/{id}",method = RequestMethod.DELETE)
     public Msg deleteProductCategory(@PathVariable("id")Integer productCategoryId){

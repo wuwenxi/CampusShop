@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wwx.ssm.o2o.dao.PersonInfoMapper">
 
+    <select id="queryPersonInfoById" resultType="com.wwx.ssm.o2o.entity.PersonInfo">
+        select p.user_id,p.name,p.gender,p.email,p.profile_img,p.user_type,
+        p.create_time,p.last_edit_time,p.enable_status
+        from
+        tb_person_info p
+        where
+        p.user_id = #{id};
+    </select>
+
 </mapper>

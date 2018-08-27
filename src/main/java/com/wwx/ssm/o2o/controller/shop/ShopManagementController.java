@@ -4,14 +4,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wwx.ssm.o2o.bean.ImageHolder;
 import com.wwx.ssm.o2o.bean.Msg;
 import com.wwx.ssm.o2o.entity.*;
+import com.wwx.ssm.o2o.enums.PersonInfoEnum;
 import com.wwx.ssm.o2o.enums.ShopStateEnum;
+import com.wwx.ssm.o2o.execution.PersonInfoExecution;
 import com.wwx.ssm.o2o.execution.ShopExecution;
 import com.wwx.ssm.o2o.service.AreaService;
+import com.wwx.ssm.o2o.service.PersonInfoService;
 import com.wwx.ssm.o2o.service.ShopCategoryService;
 import com.wwx.ssm.o2o.service.ShopService;
 import com.wwx.ssm.o2o.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,6 +38,9 @@ public class ShopManagementController {
 
     @Autowired
     AreaService areaService;
+
+    @Autowired
+    PersonInfoService infoService;
 
     @Autowired
     ShopCategoryService shopCategoryService;
@@ -86,8 +93,19 @@ public class ShopManagementController {
     @RequestMapping(value = "/getShopList",method = RequestMethod.GET)
     public Msg getShopList(HttpServletRequest request){
         PersonInfo info = new PersonInfo();
-        info.setUserId(1);
-        info.setName("吴文锡");
+       /* try {
+            PersonInfoExecution execution = infoService.getPersonInfo(1);
+            if(execution.getState().equals(PersonInfoEnum.SUCCESS.getState())){
+                info = execution.getPersonInfo();
+            }else {
+                return Msg.fail().add("error","用户信息不正确");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+       info.setUserId(1);
+       info.setName("吴文锡");
+
         request.getSession().setAttribute("user",info);
 
         info = (PersonInfo) request.getSession().getAttribute("user");
@@ -107,24 +125,21 @@ public class ShopManagementController {
     }
 
     /**
-     *         修改店铺信息
-     *         1. 获取店铺信息
      *
-     * @param request
+     *
+     * @param shopId
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/getShopById",method = RequestMethod.GET)
-    public Msg getShopById(HttpServletRequest request){
-        Integer id;
-        try {
-            id = HttpServletRequestUtils.getInt(request,"shopId");
-            Shop shop = shopService.getShopById(id);
-            List<Area> list = areaService.getAreaList();
-            map.put("areaList",list);
-            map.put("shop",shop);
-        } catch (Exception e) {
-            e.printStackTrace();
+    @RequestMapping(value = "/getShopById/{shopId}",method = RequestMethod.GET)
+    public Msg getShopById(@PathVariable Integer shopId){
+        if(shopId > 0){
+            try {
+                Shop shop = shopService.getShopById(shopId);
+                map.put("shop",shop);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return Msg.success().add("map",map);
     }

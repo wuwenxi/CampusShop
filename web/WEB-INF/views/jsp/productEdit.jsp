@@ -12,14 +12,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>商品编辑</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <link rel="shortcut icon" href="/favicon.ico">
+<%--    <link rel="shortcut icon" href="/favicon.ico">--%>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
     <link rel="stylesheet" href="${APP_PATH}/dist/css/sm-extend.min.css"/>
     <link rel="stylesheet" href="${APP_PATH}/dist/css/sm.min.css"/>
     <script type="text/javascript" src="${APP_PATH}/dist/js/zepto.min.js"></script>
-    <link rel="stylesheet" href="${APP_PATH}/static/css/shop/productManage.css">
 </head>
 <%
     pageContext.setAttribute("APP_PATH",request.getContextPath());
@@ -149,7 +148,7 @@
                                 class="form-control in" placeholder="验证码" />
                             <div class="item-input">
                                 <img id="captcha_img" alt="点击更换" title="点击更换"
-                                     onclick="changeVerifyCode(this)" src="../Kaptcha" />
+                                     onclick="changeVerifyCode(this)" src="../Kaptcha"/>
                             </div>
                         </div>
                     </div>
@@ -160,7 +159,7 @@
         <div class="content-block">
             <div class="row">
                 <div class="col-50">
-                    <a href="/myo2o/shop/productmanage"
+                    <a href="${APP_PATH}/shop/productManage"
                        class="button button-big button-fill button-danger" id="back">返回商品管理</a>
                 </div>
                 <div class="col-50">
@@ -169,8 +168,6 @@
             </div>
         </div>
     </div>
-
-
 
     <script type='text/javascript'
             src='${APP_PATH}/dist/js/sm.min.js' charset='utf-8'></script>
