@@ -5,7 +5,7 @@
         <id property="productId" column="product_id"/>
         <result property="productName" column="product_name"/>
         <result property="productDesc" column="product_desc"/>
-        <result property="imgAddress" column="img_product"/>
+        <result property="imgAddress" column="img_address"/>
         <result property="normalPrice" column="normal_price"/>
         <result property="promotionPrice" column="promotion_price"/>
         <result property="priority" column="priority"/>
@@ -13,13 +13,23 @@
         <result property="lastEditTime" column="last_edit_time"/>
         <result property="enableStatus" column="enable_status"/>
         <association property="productCategory" javaType="com.wwx.ssm.o2o.entity.ProductCategory">
-            <id column="product_category_id" property="productCategoryId"/>
-            <result column="product_category_name" property="productCategoryName"/>
-        </association>
+        <id column="product_category_id" property="productCategoryId"/>
+        <result column="product_category_name" property="productCategoryName"/>
+    </association>
         <association property="shop" javaType="com.wwx.ssm.o2o.entity.Shop">
             <id property="shopId" column="shop_id"/>
             <result property="shopName" column="shop_name"/>
         </association>
+        <!--获取图片详情列表-->
+        <collection property="productImgList" column="product_id"
+                    ofType="com.wwx.ssm.o2o.entity.ProductImg">
+            <id property="productImgId" column="product_img_id"/>
+            <result property="imgAddress" column="img_address"/>
+            <result property="imgDesc" column="img_desc"/>
+            <result property="priority" column="priority"/>
+            <result property="createTime" column="create_time"/>
+            <result property="productId" column="product_id"/>
+        </collection>
     </resultMap>
 
     <select id="queryProductById" resultMap="ProductType">
@@ -27,27 +37,61 @@
         p.normal_price,p.promotion_price,p.priority,p.create_time,p.last_edit_time,
         p.enable_status,p.product_category_id,p.shop_id,
         pc.product_category_id,pc.product_category_name,
-        s.shop_id,s.shop_name
+        s.shop_id,s.shop_name,
+        pi.product_img_id,pi.img_address,pi.img_desc,pi.priority,pi.create_time,
+        pi.product_id
         from
         tb_product p
         left join tb_product_category pc on p.product_category_id = pc.product_category_id
         left join tb_shop s on p.shop_id = s.shop_id
+        left join tb_product_img pi on p.product_id = pi.product_id
         where
         p.product_id = #{productId};
     </select>
 
-    <select id="queryProductList" resultMap="ProductType">
-        select p.product_id,p.product_name,p.product_desc,p.img_address,
-        p.normal_price,p.promotion_price,p.priority,p.create_time,p.last_edit_time,
-        p.enable_status,p.product_category_id,p.shop_id,
-        pc.product_category_id,pc.product_category_name,
-        s.shop_id,s.shop_name
+    <select id="queryProductList" resultType="com.wwx.ssm.o2o.entity.Product">
+        select product_id,product_name,product_desc,img_address,
+        normal_price,promotion_price,priority,create_time,last_edit_time,
+        enable_status,product_category_id,shop_id
         from
-        tb_product p
-        left join tb_product_category pc on p.product_category_id = pc.product_category_id
-        left join tb_shop s on p.shop_id = s.shop_id
-        where
-        p.shop_id = #{shopId};
+        tb_product
+        <where>
+            <if test="product.shop!=null and product.shop.shopId!=null">
+                and shop_id = #{product.shop.shopId}
+            </if>
+            <if test="product.productCategory!=null
+            and product.productCategory.productCategoryId!=null">
+                and product_category_id = #{product.productCategory.productCategoryId}
+            </if>
+            <if test="product.productName!=null">
+                and product_name like '%${product.productName}%'
+            </if>
+            <if test="product.enableStatus!=null">
+                and enable_status = #{product.enableStatus}
+            </if>
+        </where>
+        order by
+        priority desc
+        limit #{rowIndex},#{pageIndex}
+    </select>
+
+    <select id="queryProduct" resultType="java.lang.Integer">
+        select count(1) from tb_product
+        <where>
+            <if test="product.shop!=null and product.shop.shopId!=null">
+                and shop_id = #{product.shop.shopId}
+            </if>
+            <if test="product.productCategory!=null
+            and product.productCategory.productCategoryId!=null">
+                and product_category_id = #{product.productCategory.productCategoryId}
+            </if>
+            <if test="product.productName!=null">
+                and product_name like '%${product.productName}%'
+            </if>
+            <if test="product.enableStatus!=null">
+                and enable_status = #{product.enableStatus}
+            </if>
+        </where>
     </select>
 
     <insert id="insertProduct" useGeneratedKeys="true" keyColumn="product_id" keyProperty="productId">
@@ -60,6 +104,53 @@
         #{promotionPrice},#{priority},#{createTime},#{lastEditTime},#{enableStatus},
         #{productCategory.productCategoryId},#{shop.shopId})
     </insert>
+
+    <update id="updateProduct" parameterType="com.wwx.ssm.o2o.entity.Product">
+        update tb_product
+        <set>
+            <if test="productName!=null">
+                product_name=#{productName},
+            </if>
+            <if test="productDesc!=null">
+                product_desc = #{productDesc},
+            </if>
+            <if test="imgAddress!=null">
+                img_address = #{imgAddress},
+            </if>
+            <if test="normalPrice!=null">
+                normal_price = #{normalPrice},
+            </if>
+            <if test="promotionPrice!=null">
+                promotion_price = #{promotionPrice},
+            </if>
+            <if test="priority!=null">
+                priority = #{priority},
+            </if>
+            <if test="createTime!=null">
+                create_time = #{createTime},
+            </if>
+            <if test="lastEditTime!=null">
+                last_edit_time = #{lastEditTime},
+            </if>
+            <if test="enableStatus!=null">
+                enable_status = #{enableStatus},
+            </if>
+            <if test="productCategory != null and productCategory.productCategoryId != null">
+                product_category_id = #{productCategory.productCategoryId},
+            </if>
+        </set>
+        where
+        product_id = #{productId} and shop_id = #{shop.shopId}
+    </update>
+    
+    <update id="updateProductCategoryToNull">
+        update
+        tb_product
+        set
+        product_category_id = null
+        where
+        product_category_id = #{productCategoryId}
+    </update>
 
     <delete id="deleteProductByProductId">
         delete from tb_product where product_id = #{productId}

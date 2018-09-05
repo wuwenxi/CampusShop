@@ -10,10 +10,13 @@
     <where>
         <!--二级类别选取    当传入的类别不为空，且parent_id也不为空，则查找不为空的数据
                           若传入的类别为空，则全部查找-->
+        <if test="shopCategory == null">
+            and parent_id is null
+        </if>
         <if test="shopCategory != null">
             and parent_id is not null
         </if>
-        <if test="shopCategory.parent != null">
+        <if test="shopCategory != null and shopCategory.parent != null">
             and parent_id = #{ShopCategory.parent.shopCategoryId}
         </if>
     </where>

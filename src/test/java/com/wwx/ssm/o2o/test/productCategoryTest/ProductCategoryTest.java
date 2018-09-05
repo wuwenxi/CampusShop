@@ -42,11 +42,6 @@ public class ProductCategoryTest extends BaseTest {
 
     @Test
     public void test03(){
-       /* int num = service.deleteProductCategoryById(5);
-        if(num<=0){
-            System.out.println("删除失败");
-        }else {
-            System.out.println("删除成功");
-        }*/
+       service.deleteProductCategory(19);
     }
 }

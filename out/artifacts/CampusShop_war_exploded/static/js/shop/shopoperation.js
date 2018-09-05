@@ -148,4 +148,8 @@ $(function () {
             }
         })
     });
+
+    $("#back").click(function () {
+        window.location.href = "/shop/shopManagement?shopId="+shopId;
+    })
 });

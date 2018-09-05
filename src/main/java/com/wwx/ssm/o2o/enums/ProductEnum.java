@@ -2,7 +2,8 @@ package com.wwx.ssm.o2o.enums;
 
 public enum ProductEnum {
 
-    SUCCESS(1,"操作成功"),INNER_ERROR(-1001,"发生异常"),ERROR(-1002,"操作失败");
+    SUCCESS(1,"操作成功"),INNER_ERROR(-1001,"发生异常"),ERROR(-1002,"操作失败"),
+    EMPTY(-1003,"商品信息为空");
 
     private Integer status;
 

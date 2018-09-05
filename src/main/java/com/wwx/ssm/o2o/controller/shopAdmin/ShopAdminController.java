@@ -1,4 +1,4 @@
-package com.wwx.ssm.o2o.controller.shop;
+package com.wwx.ssm.o2o.controller.shopAdmin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

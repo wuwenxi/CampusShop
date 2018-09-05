@@ -154,7 +154,7 @@
     <div class="content-block">
         <div class="row">
             <div class="col-50">
-                <a href="#"
+                <a id="back" href="#"
                    class="button button-big button-fill button-danger">返回</a>
             </div>
             <div class="col-50">

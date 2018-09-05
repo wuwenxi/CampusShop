@@ -1,4 +1,4 @@
-package com.wwx.ssm.o2o.controller.productCategory;
+package com.wwx.ssm.o2o.controller.shopAdmin;
 
 import com.wwx.ssm.o2o.bean.Msg;
 import com.wwx.ssm.o2o.entity.ProductCategory;
@@ -103,7 +103,7 @@ public class ProductCategoryController {
         }
 
         try {
-            ProductCategoryExecution execution = service.deleteProductCategoryById(productCategoryId);
+            ProductCategoryExecution execution = service.deleteProductCategory(productCategoryId);
             if(execution.getStatus().equals(ProductCategoryEnum.SUCCESS.getStatus())){
                 return Msg.success();
             }else {

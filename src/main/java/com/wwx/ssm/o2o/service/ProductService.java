@@ -17,11 +17,14 @@ public interface ProductService {
     ProductExecution getProductById(Integer productId);
 
     /**
-     *    通过店铺id获取全部商品
-     * @param shopId
+     *
+     *        模糊查询  获取全部商品
+     * @param product
+     * @param pageSize
+     * @param pageIndex
      * @return
      */
-    ProductExecution getProductList(Integer shopId);
+    ProductExecution getProductList(Product product,Integer pageIndex,Integer pageSize);
 
     /**
      *    添加商品
@@ -33,6 +36,15 @@ public interface ProductService {
      */
     ProductExecution addProduct(Product product, ImageHolder image, List<ImageHolder> imageList);
 
+    /**
+     *
+     *  更新店铺信息
+     * @param product
+     * @param image
+     * @param imageList
+     * @return
+     */
+    ProductExecution modifyProduct(Product product,ImageHolder image,List<ImageHolder> imageList);
     /**
      *
      *   通过商品id删除商品

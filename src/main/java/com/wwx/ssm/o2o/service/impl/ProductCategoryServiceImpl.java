@@ -1,6 +1,7 @@
 package com.wwx.ssm.o2o.service.impl;
 
 import com.wwx.ssm.o2o.dao.ProductCategoryMapper;
+import com.wwx.ssm.o2o.dao.ProductMapper;
 import com.wwx.ssm.o2o.entity.ProductCategory;
 import com.wwx.ssm.o2o.enums.ProductCategoryEnum;
 import com.wwx.ssm.o2o.exception.ProductCategoryException;
@@ -16,6 +17,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     @Autowired
     ProductCategoryMapper mapper;
+
+    @Autowired
+    ProductMapper productMapper;
 
     public List<ProductCategory> getProductCategoryList(Integer shopId) {
         return mapper.queryProductCategoryList(shopId);
@@ -38,9 +42,20 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         }
     }
 
-    public ProductCategoryExecution deleteProductCategoryById(Integer id) {
+    public ProductCategoryExecution deleteProductCategory(Integer productCategoryId) {
+
+        //删除商品类别前  商品中的商品类别致为空  解除商品与商品类别的关联
         try {
-            int num = mapper.deleteProductCategoryById(id);
+            int num = productMapper.updateProductCategoryToNull(productCategoryId);
+            if(num < 0){
+                throw new ProductCategoryException("商品类别更新失败");
+            }
+        } catch (Exception e) {
+            throw new ProductCategoryException(e.getMessage());
+        }
+
+        try {
+            int num = mapper.deleteProductCategory(productCategoryId);
             if(num <= 0 ){
                 throw new ProductCategoryException("操作失败");
             }else {

@@ -32,6 +32,18 @@ public class  ProductImg {
         this.productId = productId;
     }
 
+    @Override
+    public String toString() {
+        return "ProductImg{" +
+                "productImgId=" + productImgId +
+                ", imgAddress='" + imgAddress + '\'' +
+                ", imgDesc='" + imgDesc + '\'' +
+                ", priority=" + priority +
+                ", createTime=" + createTime +
+                ", productId=" + productId +
+                '}';
+    }
+
     public String getImgAddress() {
         return imgAddress;
     }

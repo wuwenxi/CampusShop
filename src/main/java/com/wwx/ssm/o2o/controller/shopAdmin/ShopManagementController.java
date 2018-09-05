@@ -1,4 +1,4 @@
-package com.wwx.ssm.o2o.controller.shop;
+package com.wwx.ssm.o2o.controller.shopAdmin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wwx.ssm.o2o.bean.ImageHolder;

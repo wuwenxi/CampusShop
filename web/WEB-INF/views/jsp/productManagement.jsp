@@ -15,13 +15,14 @@
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
     <link rel="stylesheet"
           href="${APP_PATH}/dist/css/sm.min.css">
     <link rel="stylesheet"
           href="${APP_PATH}/dist/css/sm-extend.min.css">
-
     <script type='text/javascript'
             src='${APP_PATH}/dist/js/zepto.min.js' charset='utf-8'></script>
+
     <link rel="stylesheet" href="${APP_PATH}/static/css/shop/productManage.css">
 </head>
 <%
@@ -35,19 +36,19 @@
     <div class="content">
         <div class="content-block">
             <div class="row row-product">
-                <div class="col-30">商品名称</div>
-                <div class="col-20">优先级</div>
+                <div class="col-25">商品名称</div>
+                <div class="col-25">优先级</div>
                 <div class="col-50">操作</div>
             </div>
             <div class="product-wrap">
                 <div class="row row-product">
-                    <div class="col-30" id="product_name"></div>
+                    <%--<div class="col-30" id="product_name"></div>
                     <div class="col-20" id="priority"></div>
                     <div class="col-50" id="operation">
                         <a href="#" class="edit"></a>
                         <a href="#" class="delete"></a>
                         <a href="#" class="preview"></a>
-                    </div>
+                    </div>--%>
                 </div>
             </div>
         </div>

@@ -25,8 +25,8 @@ public interface ProductCategoryService {
     /**
      *
      *  删除商品类别
-     * @param id
+     * @param
      * @return
      */
-    ProductCategoryExecution deleteProductCategoryById(Integer id);
+    ProductCategoryExecution deleteProductCategory(Integer productCategoryId);
 }

@@ -17,6 +17,9 @@ public class ProductExecution {
     //商品列表
     private List<Product> productList;
 
+    public ProductExecution() {
+    }
+
     public ProductExecution(ProductEnum productEnum) {
         this.state = productEnum.getStatus();
         this.stateInfo = productEnum.getStatusInfo();

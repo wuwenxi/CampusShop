@@ -21,5 +21,5 @@ public interface ProductCategoryMapper {
      */
     int batchInsertProductCategory(List<ProductCategory> category);
 
-    int deleteProductCategoryById(Integer id);
+    int deleteProductCategory(Integer productCategoryId);
 }

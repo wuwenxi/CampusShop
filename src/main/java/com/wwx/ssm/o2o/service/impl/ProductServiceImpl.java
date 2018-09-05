@@ -11,6 +11,7 @@ import com.wwx.ssm.o2o.exception.ProductImgException;
 import com.wwx.ssm.o2o.execution.ProductExecution;
 import com.wwx.ssm.o2o.service.ProductService;
 import com.wwx.ssm.o2o.utils.ImageUtils;
+import com.wwx.ssm.o2o.utils.PageCalculator;
 import com.wwx.ssm.o2o.utils.PathUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,17 +43,16 @@ public class ProductServiceImpl implements ProductService {
         return new ProductExecution(ProductEnum.ERROR);
     }
 
-    public ProductExecution getProductList(Integer shopId) {
-        try {
-            List<Product> list =  mapper.queryProductList(shopId);
-            if(list!=null && list.size()>0){
-                return new ProductExecution(ProductEnum.SUCCESS,list);
-            }else {
-                return new ProductExecution(ProductEnum.ERROR);
-            }
-        } catch (Exception e) {
-            throw new ProductException("errorMsg:"+e.getMessage());
+    public ProductExecution getProductList(Product product,Integer pageIndex,Integer pageSize) {
+        Integer rowIndex = PageCalculator.calculatorRowIndex(pageIndex,pageSize);
+        List<Product> list = mapper.queryProductList(product,rowIndex,pageSize);
+        int count = mapper.queryProduct(product);
+        ProductExecution execution = new ProductExecution();
+        if(list!=null && list.size()>0 && count>0){
+            execution.setProductList(list);
+            execution.setCount(count);
         }
+       return execution;
     }
 
     public ProductExecution addProduct(Product product, ImageHolder image,List<ImageHolder> imageHolderList) {
@@ -88,6 +88,53 @@ public class ProductServiceImpl implements ProductService {
             return new ProductExecution(ProductEnum.SUCCESS,product);
         }
         return new ProductExecution(ProductEnum.INNER_ERROR);
+    }
+
+    public ProductExecution modifyProduct(Product product, ImageHolder image, List<ImageHolder> imageList) {
+        if(product.getProductId() == null || product.getShop().getShopId() == null){
+            return new ProductExecution(ProductEnum.EMPTY);
+        }
+
+        product.setLastEditTime(new Date());
+
+        try {
+            //判断是否更新图片
+            if(image!=null){
+                try {
+                    //删除原来的商品图片
+                    Product pro = mapper.queryProductById(product.getProductId());
+                    if(pro.getImgAddress()!=null){
+                        ImageUtils.deleteFileOrPath(pro.getImgAddress());
+                    }
+                    //插入更新图片
+                    insertProductImg(product,image);
+                } catch (Exception e) {
+                    throw new ProductException("更新商品图片失败");
+                }
+            }
+            //更新
+            mapper.updateProduct(product);
+
+            product = mapper.queryProductById(product.getProductId());
+
+            if(imageList != null && imageList.size() > 0){
+                List<ProductImg> list = imgMapper.queryProductImgList(product.getProductId());
+                //遍历删除详情图片
+                if(list!=null && list.size()>0){
+                    for(ProductImg productImg:list){
+                        //删除文件夹下的图片
+                        ImageUtils.deleteFileOrPath(productImg.getImgAddress());
+                    }
+                    //删除数据库中的记录
+                    imgMapper.deleteProductImgByProductId(product.getProductId());
+                }
+                insertProductImgList(product,imageList);
+            }
+            return new ProductExecution(ProductEnum.SUCCESS,product);
+        } catch (ProductException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public ProductExecution deleteProduct(Integer productId) {

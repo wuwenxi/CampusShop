@@ -23,8 +23,11 @@
         </foreach>
     </insert>
 
-    <delete id="deleteProductCategoryById">
-        delete from tb_product_category where product_category_id = #{productCategoryId}
+    <delete id="deleteProductCategory">
+        delete from
+        tb_product_category
+        where
+        product_category_id = #{productCategoryId}
     </delete>
 
 </mapper>

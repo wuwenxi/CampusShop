@@ -9,12 +9,12 @@
         product_id = #{productId};
     </select>
 
-    <insert id="batchInsertProductImg">
+    <insert id="batchInsertProductImg" parameterType="java.util.List">
         insert into
         tb_product_img(product_img_id,img_address,img_desc,
         priority,create_time,product_id)
         values
-        <foreach collection="productImgList" index="index" item="list" separator=",">
+        <foreach collection="list" index="index" item="list" separator=",">
             (#{list.productImgId},#{list.imgAddress},
             #{list.imgDesc},#{list.priority},
             #{list.createTime},#{list.productId})

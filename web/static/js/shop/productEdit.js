@@ -60,24 +60,24 @@ $(function () {
         product.promotionPrice = $("#promotion-price").val();
         product.productDesc = $("#product-desc").val();
         product.productCategory ={
-            productCategory:$("#category option:checked").val()
+            productCategoryId:$("#category option:checked").val()
         };
 
         var formData = new FormData();
-        formData.append("product",product);
-
         //获取图片
         var productImg = $("#small-img")[0].files[0];
         formData.append("productImg",productImg);
         //获取详细图片
         $(".detail-img").map(function (index,item) {
-            if ($(".detail-img")[index].files.length > 0) {
-                formData.append("productImgs" + index,$("#detail-img")[0].files[0]);
+            if ($(".detail-img")[index].files.length > 0){
+                var productImgs = $(".detail-img")[index].files[0];
+                console.log(productImgs);
+                formData.append("productImages" + index,productImgs);
             }
         });
 
         //封装Json数据
-        formData.append("productStr",JSON.stringify(product));
+        formData.append("product",JSON.stringify(product));
 
         //获取验证码信息
         var verifyCode = $("#j_captcha").val();
@@ -87,15 +87,21 @@ $(function () {
         }
         formData.append("verifyCode",verifyCode);
 
-
-        /*$.ajax({
+        $.ajax({
             url:postUrl,
             type:"POST",
+            data:formData,
+            cache:false,
+            contentType:false,
+            processData:false,
             success:function (data) {
                 if(data.code === 100){
-                    alert("success");
+                    $.toast("操作成功！");
+                    window.location.href = "/shop/productManage"
+                }else {
+                    $.toast("操作失败！");
                 }
             }
-        })*/
+        })
     })
 });
