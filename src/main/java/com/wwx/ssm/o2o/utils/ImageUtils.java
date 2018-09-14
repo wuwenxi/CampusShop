@@ -84,6 +84,56 @@ public class ImageUtils {
         return relativePath;
     }
 
+    public static String generateShopCategoryImage(ImageHolder image,String path){
+        //获取随机文件名
+        String realFileName = getRandomName();
+        //获取源文件的扩展名
+        String extension = getFileExtension(image.getFileName());
+        //创建路径所需的文件夹  "upload/item/shop/1/"
+        makeDirName(path);
+        //相对路径
+        String relativePath = path + realFileName + extension;
+        //保存路径  根路径+ 相对路径
+        File dest = new File(PathUtils.getImgBasePath() + relativePath);
+        try {
+            Thumbnails.of(image.getInputStream())
+                    .size(50,50)
+                    //压缩成百分之八十
+                    .outputQuality(0.8f)
+                    //输出新文件
+                    .toFile(dest);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return relativePath;
+    }
+
+    public static String generateHeadLineImage(ImageHolder image,String path){
+        //获取随机文件名
+        String realFileName = getRandomName();
+        //获取源文件的扩展名
+        String extension = getFileExtension(image.getFileName());
+        //创建路径所需的文件夹  ""
+        makeDirName(path);
+        //相对路径
+        String relativePath = path + realFileName + extension;
+        //保存路径  根路径+ 相对路径
+        File dest = new File(PathUtils.getImgBasePath() + relativePath);
+        try {
+            Thumbnails.of(image.getInputStream())
+                    .size(337,200)
+                    //压缩成百分之八十
+                    .outputQuality(0.8f)
+                    //输出新文件
+                    .toFile(dest);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return relativePath;
+    }
+
     /**
      *  每个文件的开头名字都不同，当前年月日小时分钟秒 + 五位随机数
      * @return

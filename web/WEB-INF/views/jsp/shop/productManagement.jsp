@@ -36,8 +36,8 @@
     <div class="content">
         <div class="content-block">
             <div class="row row-product">
-                <div class="col-25">商品名称</div>
-                <div class="col-25">优先级</div>
+                <div class="col-30">商品名称</div>
+                <div class="col-20">优先级</div>
                 <div class="col-50">操作</div>
             </div>
             <div class="product-wrap">

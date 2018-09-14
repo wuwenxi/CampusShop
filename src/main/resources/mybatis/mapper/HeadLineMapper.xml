@@ -16,4 +16,55 @@
         priority desc
     </select>
 
+    <select id="queryHeadLineById" resultType="com.wwx.ssm.o2o.entity.HeadLine">
+        select
+         *
+        from
+        tb_head_line
+        where
+        line_id = #{lineId}
+        order by
+        priority desc
+    </select>
+
+    <insert id="addHeadLine">
+        insert into
+        tb_head_line(line_id,line_name,line_link,line_img,
+        enable_status,priority,create_time,last_edit_time)
+        values
+        (#{lineId},#{lineName},#{lineLink},#{lineImg},#{enableStatus},
+       #{priority},#{createTime},#{lastEditTime})
+    </insert>
+
+    <update id="updateHeadLine">
+        update
+        tb_head_line
+        <set>
+            <if test="lineName!=null">
+                line_name = #{lineName},
+            </if>
+            <if test="lineLink!=null">
+                line_link = #{lineLink},
+            </if>
+            <if test="lineImg!=null">
+                line_img = #{lineImg},
+            </if>
+            <if test="enableStatus!=null">
+                enable_status = #{enableStatus},
+            </if>
+            <if test="priority!=null">
+                priority = #{priority},
+            </if>
+            <if test="lastEditTime!=null">
+                last_edit_time = #{lastEditTime}
+            </if>
+        </set>
+        where
+        line_id = #{lineId}
+    </update>
+
+    <delete id="deleteHeadLine">
+        delete from tb_head_line where line_id = #{lineId}
+    </delete>
+
 </mapper>

@@ -13,3 +13,6 @@
 .product-wrap a {
     margin-right: 1rem;
 }
+
+.row .col-30{width:28%;margin-left:2%}
+.row.no-gutter .col-30{width:30%;margin:0}

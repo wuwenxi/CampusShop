@@ -1,4 +1,4 @@
-package com.wwx.ssm.o2o.controller.fontend;
+package com.wwx.ssm.o2o.controller.frontend;
 
 import com.wwx.ssm.o2o.bean.Msg;
 import com.wwx.ssm.o2o.entity.HeadLine;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +53,7 @@ public class MainPageController {
             HeadLine headLine = new HeadLine();
             headLine.setEnableStatus(1);
             headLineList = headLineService.getHeadLineList(headLine);
+
             map.put("headLineList",headLineList);
         } catch (Exception e) {
             e.printStackTrace();

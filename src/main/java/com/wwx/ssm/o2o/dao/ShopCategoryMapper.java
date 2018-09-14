@@ -8,4 +8,10 @@ import org.apache.ibatis.annotations.Param;
 public interface ShopCategoryMapper {
 
     List<ShopCategory> queryForListShopCategory(@Param("shopCategory") ShopCategory shopCategory);
+
+    int addShopCategory(ShopCategory shopCategory);
+
+    int updateShopCategoryById(ShopCategory shopCategory);
+
+    int deleteShopCategoryId(Integer shopCategoryId);
 }

@@ -106,4 +106,20 @@ public class ShopTest extends BaseTest {
         }
     }
 
+    @Test
+    public void ShopListAndCount(){
+        ShopCategory childCategory = new ShopCategory();
+        ShopCategory parentCategory = new ShopCategory();
+        parentCategory.setShopCategoryId(4);
+        childCategory.setParent(parentCategory);
+        Shop shop = new Shop();
+        shop.setShopCategory(childCategory);
+        int num = mapper.queryShopCount(shop);
+        System.out.println(num);
+        List<Shop> list = mapper.queryShopList(shop,0,100);
+        for(Shop shop1 : list){
+            System.out.println(shop1);
+        }
+    }
+
 }

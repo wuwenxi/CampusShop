@@ -10,30 +10,31 @@ public class ShopAdminController {
 
     @RequestMapping(value = "/shopOperation",method = RequestMethod.GET)
     public String ShopOperation(){
-        return "shopOperation";
+        return "shop/shopOperation";
     }
 
     @RequestMapping(value = "/shopList",method = RequestMethod.GET)
     public String ShopList(){
-        return "shopList";
+        return "shop/shopList";
     }
+
     @RequestMapping(value = "/shopManagement",method = RequestMethod.GET)
     public String ShopManagement(){
-        return "shopManagement";
+        return "shop/shopManagement";
     }
 
     @RequestMapping(value = "/productCategoryManage",method = RequestMethod.GET)
     public String ProductCategoryManagement(){
-        return "productCategoryManagement";
+        return "shop/productCategoryManagement";
     }
 
     @RequestMapping(value = "/productManage",method = RequestMethod.GET)
     public String ProductManagement(){
-        return "productManagement";
+        return "shop/productManagement";
     }
 
     @RequestMapping(value = "/productEdit",method = RequestMethod.GET)
     public String ProductEdit(){
-        return "productEdit";
+        return "shop/productEdit";
     }
 }

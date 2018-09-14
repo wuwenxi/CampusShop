@@ -153,6 +153,7 @@ public class ShopServiceImpl implements ShopService {
         if(shopList!=null){
             sc.setShops(shopList);
             sc.setCount(count);
+            sc.setState(ShopStateEnum.SUCCESS.getState());
         }else{
             sc.setState(ShopStateEnum.INNER_ERROR.getState());
         }

@@ -21,10 +21,10 @@ $(function () {
                         contraryStatus = 0;
                     }
                     tempHtml += '' + '<div class="row row-product">'
-                        + '<div class="col-25">'
+                        + '<div class="col-30">'
                         + item.productName
                         + '</div>'
-                        + '<div class="col-25">'
+                        + '<div class="col-20">'
                         + item.priority
                         + '</div>'
                         + '<div class="col-50">'

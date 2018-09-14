@@ -36,13 +36,23 @@
         left join tb_area a on s.area_id = a.area_id
         left join tb_shop_category sc on s.shop_category_id = sc.shop_category_id
         <where>
-            <if test="shop.shopCategory!=null">
+            <if test="shop.shopCategory!=null
+            and shop.shopCategory.shopCategoryId != null">
                 and s.shop_category_id=#{shop.shopCategory.shopCategoryId}
             </if>
-            <if test="shop.area!=null">
+            <!--取出一级类别下的所有子类别-->
+            <if test="shop.shopCategory != null
+            and shop.shopCategory.parent != null
+            and shop.shopCategory.parent.shopCategoryId != null">
+                and s.shop_category_id in (select shop_category_id
+                from tb_shop
+                where
+                parent_id = #{shop.shopCategory.parent.shopCategoryId})
+            </if>
+            <if test="shop.area!=null and shop.area.areaId != null">
                 and s.area_id = #{shop.area.areaId}
             </if>
-            <if test="shop.owner!=null">
+            <if test="shop.owner!=null and shop.owner.userId != null">
                 and s.owner_id = #{shop.owner.userId}
             </if>
             <if test="shop.enableStatus!=null">
@@ -63,13 +73,25 @@
         left join tb_area a on s.area_id = a.area_id
         left join tb_shop_category sc on s.shop_category_id = sc.shop_category_id
         <where>
-            <if test="shop.shopCategory!=null">
+            <if test="shop.shopCategory!=null
+            and shop.shopCategory.shopCategoryId != null">
                 and s.shop_category_id=#{shop.shopCategory.shopCategoryId}
             </if>
-            <if test="shop.area!=null">
+            <!--取出一级类别下的所有子类别-->
+            <if test="shop.shopCategory != null
+            and shop.shopCategory.parent != null
+            and shop.shopCategory.parent.shopCategoryId != null">
+                and s.shop_category_id in (select shop_category_id
+                from tb_shop
+                where
+                parent_id = #{shop.shopCategory.parent.shopCategoryId})
+            </if>
+            <if test="shop.area!=null
+            and shop.area.areaId != null">
                 and s.area_id = #{shop.area.areaId}
             </if>
-            <if test="shop.owner!=null">
+            <if test="shop.owner!=null
+            and shop.owner.userId != null">
                 and s.owner_id = #{shop.owner.userId}
             </if>
             <if test="shop.enableStatus!=null">
