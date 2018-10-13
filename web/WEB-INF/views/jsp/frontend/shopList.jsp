@@ -34,10 +34,10 @@
     <div class="page-group">
         <div class="page">
             <header class="bar bar-nav">
-                <%--<a class="button button-link button-nav pull-left" external
+                <a class="button button-link button-nav pull-left" external
                    href="index" data-transition='slide-out'> <span
                         class="icon icon-left"></span> 返回
-                </a>--%>
+                </a>
                 <h1 class="title">商店列表</h1>
             </header>
             <div class="bar bar-header-secondary">

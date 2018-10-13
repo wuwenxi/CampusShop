@@ -12,10 +12,7 @@ import com.wwx.ssm.o2o.service.ShopService;
 import com.wwx.ssm.o2o.utils.HttpServletRequestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -90,7 +87,7 @@ public class ShopListController {
      */
     @ResponseBody
     @RequestMapping(value = "/getShopList",method = RequestMethod.GET)
-    public Msg getShopList(HttpServletRequest request){
+    public Msg getShopList(@RequestParam Integer parentId, HttpServletRequest request){
         //获取起始页
         Integer pageIndex = HttpServletRequestUtils.getInt(request,"pageIndex");
         //获取页面大小
@@ -99,7 +96,7 @@ public class ShopListController {
         if((pageIndex > -1) && (pageSize > -1)){
             //根据条件查询
             //获取一级类别id
-            Integer parentId = HttpServletRequestUtils.getInt(request,"parentId");
+            //Integer parentId = HttpServletRequestUtils.getInt(request,"parentId");
             //获取地区id
             Integer areaId = HttpServletRequestUtils.getInt(request,"areaId");
             //获取店铺类别id

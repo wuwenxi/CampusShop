@@ -6,6 +6,7 @@ import com.wwx.ssm.o2o.entity.Area;
 import com.wwx.ssm.o2o.entity.PersonInfo;
 import com.wwx.ssm.o2o.entity.Shop;
 import com.wwx.ssm.o2o.entity.ShopCategory;
+import com.wwx.ssm.o2o.enums.ShopStateEnum;
 import com.wwx.ssm.o2o.execution.ShopExecution;
 import com.wwx.ssm.o2o.service.ShopService;
 import com.wwx.ssm.o2o.test.BaseTest;
@@ -119,6 +120,26 @@ public class ShopTest extends BaseTest {
         List<Shop> list = mapper.queryShopList(shop,0,100);
         for(Shop shop1 : list){
             System.out.println(shop1);
+        }
+    }
+
+    @Test
+    public void testQueryShop(){
+        ShopCategory shopCategory = new ShopCategory();
+        shopCategory.setShopCategoryId(1);
+        ShopCategory parentCategory = new ShopCategory();
+        parentCategory.setShopCategoryId(3);
+        shopCategory.setParent(parentCategory);
+        Shop shop = new Shop(null,null,null,shopCategory,"香",null,null,null,null
+        ,null,null,null,1,null);
+        ShopExecution execution = shopService.getShopList(shop,1,20);
+        if(execution.getState().equals(ShopStateEnum.SUCCESS.getState())){
+            System.out.println(execution.getCount());
+            for (Shop shop1:execution.getShops()){
+                System.out.println(shop1);
+            }
+        }else{
+            System.out.println("操作失败");
         }
     }
 
