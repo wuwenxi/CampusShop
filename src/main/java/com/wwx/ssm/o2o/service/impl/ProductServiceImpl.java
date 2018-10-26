@@ -34,6 +34,8 @@ public class ProductServiceImpl implements ProductService {
             try {
                 Product product = mapper.queryProductById(productId);
                 if(product != null){
+                    List<ProductImg> list = imgMapper.queryProductImgList(productId);
+                    product.setProductImgList(list);
                     return new ProductExecution(ProductEnum.SUCCESS,product);
                 }
             } catch (Exception e) {
@@ -51,6 +53,9 @@ public class ProductServiceImpl implements ProductService {
         if(list!=null && list.size()>0 && count>0){
             execution.setProductList(list);
             execution.setCount(count);
+            execution.setState(ProductEnum.SUCCESS.getStatus());
+        }else {
+            execution.setState(ProductEnum.EMPTY.getStatus());
         }
        return execution;
     }

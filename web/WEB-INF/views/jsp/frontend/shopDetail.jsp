@@ -62,10 +62,10 @@
                                 <p id="shop-phone"></p>
                             </div>
                         </div>
-                        <div class="card-footer">
+                        <%--<div class="card-footer">
                             <!-- <a href="#" class="link">赞</a> -->
                             <!-- <a href="#" class="link">更多</a> -->
-                        </div>
+                        </div>--%>
                     </div>
                 </div>
                 <div class="shopdetail-button-div" id="shopdetail-button-div">

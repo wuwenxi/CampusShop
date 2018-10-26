@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,7 +83,7 @@ public class ShopDetailController {
                 map.put("count",execution.getCount());
                 return Msg.success().add("map",map);
             }else {
-                return Msg.fail();
+                return Msg.success().add("message","未查询到指定数据！");
             }
         }else {
             return Msg.fail();
@@ -103,7 +102,7 @@ public class ShopDetailController {
             productCategory.setProductCategoryId(productCategoryId);
             product.setProductCategory(productCategory);
         }
-        if(!productName.equals("") && productName!=null){
+        if(productName != null && !productName.equals("")){
             product.setProductName(productName);
         }
         product.setEnableStatus(1);

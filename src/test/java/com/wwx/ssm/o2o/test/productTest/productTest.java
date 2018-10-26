@@ -67,8 +67,11 @@ public class productTest extends BaseTest {
 
     @Test
     public void test03(){
-        Product product = mapper.queryProductById(8);
-        System.out.println(product);
+        //Product product = mapper.queryProductById(1);
+        ProductExecution execution = service.getProductById(1);
+        if(execution.getState().equals(ProductEnum.SUCCESS.getStatus())){
+            System.out.println(execution.getProduct().getProductImgList());
+        }
     }
 
     @Test

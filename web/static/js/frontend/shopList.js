@@ -105,7 +105,7 @@ $(function () {
     //卡片的响应事件
     $(".shop-list").on("click",".card",function (e) {
         var shopId = e.currentTarget.dataset.shopId;
-        alert(shopId);
+        //alert(shopId);
         window.location.href = "/frontend/shopDetail?shopId="+shopId;
     });
 

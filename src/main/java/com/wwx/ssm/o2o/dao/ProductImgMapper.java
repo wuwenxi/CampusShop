@@ -15,6 +15,13 @@ public interface ProductImgMapper {
     List<ProductImg> queryProductImgList(Integer productId);
 
     /**
+     *
+     *   查询全部商品详细图片
+     * @return
+     */
+    List<ProductImg> queryAllProductImgList();
+
+    /**
      *    批量插入商品的详细图片
      * @param productImgList
      * @return

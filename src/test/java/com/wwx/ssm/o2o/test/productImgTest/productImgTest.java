@@ -33,4 +33,16 @@ public class productImgTest extends BaseTest {
             System.out.println(productImg);
         }
     }
+
+    @Test
+    public void test03(){
+        List<ProductImg> list = mapper.queryAllProductImgList();
+        for (ProductImg productImg:list){
+            if(productImg.getImgAddress()!=null){
+                if(productImg.getImgAddress().contains("\\")){
+                    productImg.getImgAddress().replace("\\","/");
+                }
+            }
+        }
+    }
 }

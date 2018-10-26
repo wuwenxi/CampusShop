@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wwx.ssm.o2o.dao.ProductImgMapper">
 
+    <select id="queryAllProductImgList" resultType="com.wwx.ssm.o2o.entity.ProductImg">
+        select product_img_id,img_address,img_desc,priority,create_time,product_id
+        from tb_product_img
+    </select>
+
     <select id="queryProductImgList" resultType="com.wwx.ssm.o2o.entity.ProductImg">
         select product_img_id,img_address,img_desc,priority,create_time,product_id
         from tb_product_img
